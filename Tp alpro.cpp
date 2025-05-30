@@ -56,16 +56,24 @@ public:
 
     void anggota() {
         cout << "\nAnda login sebagai MEMBER\n";
-        //fitur anggota di sini
+        int kode, jam;
+        cout<<"Masukkan kode komputer: ";
+        cin>>kode;
+        cout<<"Berapa jam ingin menyewa? = ";
+        cin>>jam;
     }
     
+    void sewakomputer(){
+    	
+	}
+	
     void tambahKomputer(int n) {		
 	cout<<endl;					
-		cout<<"Ingin Menambahkan Berapa Komputer ?";cin>>n;
+		cout<<"Ingin Menambahkan Berapa Komputer? = ";cin>>n;
     	daftarMenu *menu = new daftarMenu[n];  
     	cin.ignore(); 							
     	for(int i = 0; i < n; i++){		
-	cout<<endl;		
+			cout<<endl;		
     		cout<<"Masukan Komputer Ke-"<<i+1<<endl;
     		cout << "Masukkan Kode Komputer: ";
     		getline(cin, menu[i].kode);		
@@ -92,52 +100,54 @@ public:
     	} else {
         	cout << "Gagal menambah komputer.\n";
     	}
+
 	}
+	
 	void lihatDaftar(){
-		ifstream adahku("text.txt");
-    string baris;				
-		
+	ifstream adahku("text.txt");
+    string baris;					
     if (adahku.is_open()) {			
-        	
+	 	
         cout << "\n+" << string(20, '-') << "+" << string(20, '-') << "+"  
-             << string(20, '-') << "+"<< string(10, '-') << "+\n";
+             << string(20, '-') << "+" << string(15, '-') << "+\n";
              
         cout << "|" << setw(20) << left << "Kode Komputer" << "|" 
-             << setw(20) << left << "Kategori" << "|" 
-             << setw(20) << left << "Deskripsi"  << "|"
-			 << setw(10) << left << "Harga per-jam"  << "|"; 
-			 
-        cout << "+" << string(20, '-') << "+" << string(20, '-') << "+"
-     		<< string(20, '-') << "+" << string(10, '-') << "+\n";
+             << setw(20)<<left << "Kategori"<< "|" 
+             << setw(20)<<left << "Deskripsi" << "|"
+             << setw(15)<<left<<"Harga per-jam"<<"|\n";
+             
+        cout << "+" << string(20, '-') << "+" << string(20, '-') << "+" 
+             << string(20, '-') << "+" << string(15, '-') << "+\n";
 
        
         while (getline(adahku, baris)) {
             size_t pos = 0;
-            string tokens[4];
             int col = 0;
+            string tokens[4];
             
-            while ((pos = baris.find("|")) != string::npos && col <3) { 
-                tokens[col++] = baris.substr(0, pos);
+            while ((pos = baris.find("|")) != string::npos) { 
+                tokens[col] = baris.substr(0, pos);
                 baris.erase(0, pos + 1);
+                col++;
             }
             tokens[3] = baris; 
             
             cout << "|" << setw(20) << left << tokens[0].substr(0, 19) << "|"
                  << setw(20) << left << tokens[1].substr(0, 19) << "|"
-                << setw(20) << left << tokens[2].substr(0,19) << "|"
-				<< setw(10) << left << tokens[3].substr(0,9)<<"\n";
+                 << setw(20) << left << tokens[2].substr(0, 19) << "|"
+                 << setw(15) << left << tokens[3].substr(0, 14) << "|\n";
         }
-        cout << "+" << string(20, '-') << "+" << string(20, '-') << "+" 
-             << string(20, '-') << "+" <<string(10, '-')<<"+\n";
         
-        adahku.close();					//untuk menutup file
-    } else {
+        cout << "+" << string(20, '-') << "+" << string(20, '-') << "+" 
+             << string(20, '-') << "+" << string(15, '-') << "+\n";
+        
+        adahku.close();			//untuk menutup file
+    }
+     else {
         cout << "File tidak ditemukan atau tidak dapat dibuka.\n";
     }
         system("START /MIN NOTEPAD text.txt"); // untuk membuka file pada text.txt notepade++
 	}
-
-
 
 private:
     int roles;        
@@ -171,4 +181,3 @@ int main() {
     cin >> x;    
     return 0;
 }
-
