@@ -52,8 +52,6 @@ public:
 		}else if(pilihan == 2){
 			lihatDaftar();
 		}
-       
-        
     }
 
     void anggota() {
@@ -67,7 +65,7 @@ public:
     	daftarMenu *menu = new daftarMenu[n];  
     	cin.ignore(); 							
     	for(int i = 0; i < n; i++){		
-			cout<<endl;		
+	cout<<endl;		
     		cout<<"Masukan Komputer Ke-"<<i+1<<endl;
     		cout << "Masukkan Kode Komputer: ";
     		getline(cin, menu[i].kode);		
@@ -94,10 +92,7 @@ public:
     	} else {
         	cout << "Gagal menambah komputer.\n";
     	}
-
 	}
-	
-	
 	void lihatDaftar(){
 		ifstream adahku("text.txt");
     string baris;				
