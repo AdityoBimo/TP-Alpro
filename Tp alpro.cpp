@@ -41,6 +41,12 @@ public:
     void admin() {
     	int pilihan;
         cout << "\nAnda login sebagai ADMIN\n";
+        cout<<endl;
+        cout<<"Note kode: \n";
+        cout<<"Kode A: Gaming\n";
+        cout<<"Kode B: Kantoran\n";
+        cout<<"Kode C: internet\n";
+        cout<<endl;
         cout<<"1. Tambah Komputer\n";
         cout<<"2. Lihat Daftar Komputer\n";
         cout<<"masukan pilihan : ";
