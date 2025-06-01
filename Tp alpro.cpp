@@ -1,6 +1,7 @@
 #include<iostream>
 #include<string>
 #include <fstream>
+#include <sstream>
 #include <iomanip>	//memanipulasi input output
 using namespace std;
 
@@ -49,6 +50,7 @@ public:
         cout<<endl;
         cout<<"1. Tambah Komputer\n";
         cout<<"2. Lihat Daftar Komputer\n";
+        cout<<"3. Sewa Komputer\n";
         cout<<"masukan pilihan : ";
         cin>>pilihan;
         
@@ -58,19 +60,73 @@ public:
 		}else if(pilihan == 2){
 			lihatDaftar();
 		}
+		else if (pilihan==3){
+			sewakomp();
+		}
     }
 
     void anggota() {
         cout << "\nAnda login sebagai MEMBER\n";
-        int kode, jam;
-        cout<<"Masukkan kode komputer: ";
-        cin>>kode;
-        cout<<"Berapa jam ingin menyewa? = ";
-        cin>>jam;
     }
     
-    void sewakomputer(){
+    void sewakomp(){
+    	string kodekomp, namaPelanggan;
+    	int jam;
+    	double harga=0, totalbayar=0;
+    	bool temukan=false;
     	
+    	cin.ignore();
+    	cout<<"Masukkan nama pelanggan: ";
+    	getline(cin,namaPelanggan);
+    	cout<<"Masukkan kode komputer ysng di sewa: ";
+    	cin>>kodekomp;
+    	cout<<"berapa jam ingin menyewa: ";
+    	cin>>jam;
+    	
+    	lihatDaftar();
+    	
+    	ifstream file("text.txt");
+    	
+    	if (!file.is_open()) {
+        cout << "Gagal membuka file data komputer.\n";
+        return;
+    }
+    
+    	string baris;
+    	while(getline(file,baris)){
+    		size_t pos = 0;
+            int col = 0;
+            string data[4];
+		
+		 while ((pos = baris.find("|")) != string::npos &&col<3) { 
+                data[col] = baris.substr(0, pos);
+                baris.erase(0, pos + 1);
+                col++;
+            }
+    	
+    	data[3]=baris;
+    	
+    	if (data[0]==kodekomp){
+    		stringstream ss(data[3]);
+			ss >> harga; //mengubah string menjadi doublea
+    		totalbayar=harga*jam;
+    		temukan = true;
+                cout<<endl;
+                cout<<"Detail sewaan: \n";
+                cout<<"Kode komputer = "<<data[0]<<endl;
+                cout<<"Kategori  = "<<data[1]<<endl;
+                cout<<"Deskripsi = "<<data[2]<<endl;
+                cout<<"harga per-jam = "<<harga<<endl;
+                cout<<"Durasi sewa = "<<jam<<"Jam\n";
+                cout<<"Total bayar = "<<totalbayar<<endl;
+		}
+	}	
+		file.close();
+		
+		if(!temukan){
+			cout<<"Data komputer tidak ada\n";
+			
+		}
 	}
 	
     void tambahKomputer(int n) {		
